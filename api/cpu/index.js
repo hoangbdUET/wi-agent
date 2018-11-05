@@ -4,7 +4,9 @@ const os = require('os');
 const sysInfo = require('systeminformation');
 
 router.get('/', (req, res) => {
-    res.json(os.cpus());
+    sysInfo.cpu().then(summary => {
+        res.json({summary, cpus: os.cpus()});
+    })
 });
 
 router.get('/usage', (req, res) => {
