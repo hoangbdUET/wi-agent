@@ -1,10 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const sysInfo = require('systeminformation');
-
+const os = require('os');
 router.get('/', (req, res) => {
     sysInfo.memLayout().then(rs => {
-        res.json(rs);
+        res.json({
+            summary: {
+                total: os.totalmem()
+            },
+            memories: rs
+        });
     });
 });
 
